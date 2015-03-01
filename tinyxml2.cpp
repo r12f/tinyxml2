@@ -534,6 +534,18 @@ void XMLUtil::ToStr( unsigned v, char* buffer, int bufferSize )
 }
 
 
+void XMLUtil::ToStr( long long v, char* buffer, int bufferSize )
+{
+    TIXML_SNPRINTF( buffer, bufferSize, "%lld", v );
+}
+
+
+void XMLUtil::ToStr( unsigned long long v, char* buffer, int bufferSize )
+{
+    TIXML_SNPRINTF( buffer, bufferSize, "%llu", v );
+}
+
+
 void XMLUtil::ToStr( bool v, char* buffer, int bufferSize )
 {
     TIXML_SNPRINTF( buffer, bufferSize, "%d", v ? 1 : 0 );
@@ -1341,6 +1353,22 @@ void XMLAttribute::SetAttribute( int v )
 
 
 void XMLAttribute::SetAttribute( unsigned v )
+{
+    char buf[BUF_SIZE];
+    XMLUtil::ToStr( v, buf, BUF_SIZE );
+    _value.SetStr( buf );
+}
+
+
+void XMLAttribute::SetAttribute( long long v )
+{
+    char buf[BUF_SIZE];
+    XMLUtil::ToStr( v, buf, BUF_SIZE );
+    _value.SetStr( buf );
+}
+
+
+void XMLAttribute::SetAttribute( unsigned long long v )
 {
     char buf[BUF_SIZE];
     XMLUtil::ToStr( v, buf, BUF_SIZE );

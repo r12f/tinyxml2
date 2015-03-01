@@ -582,6 +582,8 @@ public:
     // converts primitive types to strings
     static void ToStr( int v, char* buffer, int bufferSize );
     static void ToStr( unsigned v, char* buffer, int bufferSize );
+    static void ToStr( long long v, char* buffer, int bufferSize );
+    static void ToStr( unsigned long long v, char* buffer, int bufferSize );
     static void ToStr( bool v, char* buffer, int bufferSize );
     static void ToStr( float v, char* buffer, int bufferSize );
     static void ToStr( double v, char* buffer, int bufferSize );
@@ -1121,6 +1123,10 @@ public:
     /// Set the attribute to value.
     void SetAttribute( unsigned value );
     /// Set the attribute to value.
+    void SetAttribute( long long value );
+    /// Set the attribute to value.
+    void SetAttribute( unsigned long long value );
+    /// Set the attribute to value.
     void SetAttribute( bool value );
     /// Set the attribute to value.
     void SetAttribute( double value );
@@ -1335,6 +1341,16 @@ public:
     }
     /// Sets the named attribute to value.
     void SetAttribute( const char* name, unsigned value )		{
+        XMLAttribute* a = FindOrCreateAttribute( name );
+        a->SetAttribute( value );
+    }
+    /// Sets the named attribute to value.
+    void SetAttribute( const char* name, long long value )			{
+        XMLAttribute* a = FindOrCreateAttribute( name );
+        a->SetAttribute( value );
+    }
+    /// Sets the named attribute to value.
+    void SetAttribute( const char* name, unsigned long long value )		{
         XMLAttribute* a = FindOrCreateAttribute( name );
         a->SetAttribute( value );
     }
