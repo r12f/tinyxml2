@@ -591,6 +591,12 @@ public:
     // converts strings to primitive types
     static bool	ToInt( const char* str, int* value );
     static bool ToUnsigned( const char* str, unsigned* value );
+    static bool	ToInt8( const char* str, char* value );
+    static bool ToUnsigned8( const char* str, unsigned char* value );
+    static bool	ToInt16( const char* str, short* value );
+    static bool ToUnsigned16( const char* str, unsigned short* value );
+    static bool	ToInt64( const char* str, long long* value );
+    static bool ToUnsigned64( const char* str, unsigned long long* value );
     static bool	ToBool( const char* str, bool* value );
     static bool	ToFloat( const char* str, float* value );
     static bool ToDouble( const char* str, double* value );
@@ -1110,6 +1116,18 @@ public:
     /// See QueryIntValue
     XMLError QueryUnsignedValue( unsigned int* value ) const;
     /// See QueryIntValue
+    XMLError QueryInt8Value( char* value ) const;
+    /// See QueryIntValue
+    XMLError QueryUnsigned8Value( unsigned char* value ) const;
+    /// See QueryIntValue
+    XMLError QueryInt16Value( short* value ) const;
+    /// See QueryIntValue
+    XMLError QueryUnsigned16Value( unsigned short* value ) const;
+    /// See QueryIntValue
+    XMLError QueryInt64Value( long long* value ) const;
+    /// See QueryIntValue
+    XMLError QueryUnsigned64Value( unsigned long long* value ) const;
+    /// See QueryIntValue
     XMLError QueryBoolValue( bool* value ) const;
     /// See QueryIntValue
     XMLError QueryDoubleValue( double* value ) const;
@@ -1220,6 +1238,18 @@ public:
         return i;
     }
     /// See IntAttribute()
+    long long Int64Attribute( const char* name ) const		{
+        long long i=0;
+        QueryInt64Attribute( name, &i );
+        return i;
+    }
+    /// See IntAttribute()
+    unsigned long long Unsigned64Attribute( const char* name ) const {
+        unsigned long long i=0;
+        QueryUnsigned64Attribute( name, &i );
+        return i;
+    }
+    /// See IntAttribute()
     bool	 BoolAttribute( const char* name ) const	{
         bool b=false;
         QueryBoolAttribute( name, &b );
@@ -1265,6 +1295,54 @@ public:
             return XML_NO_ATTRIBUTE;
         }
         return a->QueryUnsignedValue( value );
+    }
+    /// See QueryIntAttribute()
+    XMLError QueryInt8Attribute( const char* name, char* value ) const				{
+        const XMLAttribute* a = FindAttribute( name );
+        if ( !a ) {
+            return XML_NO_ATTRIBUTE;
+        }
+        return a->QueryInt8Value( value );
+    }
+    /// See QueryIntAttribute()
+    XMLError QueryUnsigned8Attribute( const char* name, unsigned char* value ) const	{
+        const XMLAttribute* a = FindAttribute( name );
+        if ( !a ) {
+            return XML_NO_ATTRIBUTE;
+        }
+        return a->QueryUnsigned8Value( value );
+    }
+    /// See QueryIntAttribute()
+    XMLError QueryInt16Attribute( const char* name, short* value ) const				{
+        const XMLAttribute* a = FindAttribute( name );
+        if ( !a ) {
+            return XML_NO_ATTRIBUTE;
+        }
+        return a->QueryInt16Value( value );
+    }
+    /// See QueryIntAttribute()
+    XMLError QueryUnsigned16Attribute( const char* name, unsigned short* value ) const	{
+        const XMLAttribute* a = FindAttribute( name );
+        if ( !a ) {
+            return XML_NO_ATTRIBUTE;
+        }
+        return a->QueryUnsigned16Value( value );
+    }
+    /// See QueryIntAttribute()
+    XMLError QueryInt64Attribute( const char* name, long long* value ) const				{
+        const XMLAttribute* a = FindAttribute( name );
+        if ( !a ) {
+            return XML_NO_ATTRIBUTE;
+        }
+        return a->QueryInt64Value( value );
+    }
+    /// See QueryIntAttribute()
+    XMLError QueryUnsigned64Attribute( const char* name, unsigned long long* value ) const	{
+        const XMLAttribute* a = FindAttribute( name );
+        if ( !a ) {
+            return XML_NO_ATTRIBUTE;
+        }
+        return a->QueryUnsigned64Value( value );
     }
     /// See QueryIntAttribute()
     XMLError QueryBoolAttribute( const char* name, bool* value ) const				{
@@ -1315,6 +1393,30 @@ public:
 
 	int QueryAttribute( const char* name, unsigned int* value ) const {
 		return QueryUnsignedAttribute( name, value );
+	}
+
+	int QueryAttribute( const char* name, char* value ) const {
+		return QueryInt8Attribute( name, value );
+	}
+
+	int QueryAttribute( const char* name, unsigned char* value ) const {
+		return QueryUnsigned8Attribute( name, value );
+	}
+
+	int QueryAttribute( const char* name, short* value ) const {
+		return QueryInt16Attribute( name, value );
+	}
+
+	int QueryAttribute( const char* name, unsigned short* value ) const {
+		return QueryUnsigned16Attribute( name, value );
+	}
+
+	int QueryAttribute( const char* name, long long* value ) const {
+		return QueryInt64Attribute( name, value );
+	}
+
+	int QueryAttribute( const char* name, unsigned long long* value ) const {
+		return QueryUnsigned64Attribute( name, value );
 	}
 
 	int QueryAttribute( const char* name, bool* value ) const {

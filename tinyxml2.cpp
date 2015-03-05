@@ -575,9 +575,61 @@ bool XMLUtil::ToInt( const char* str, int* value )
     return false;
 }
 
-bool XMLUtil::ToUnsigned( const char* str, unsigned *value )
+bool XMLUtil::ToUnsigned( const char* str, unsigned* value )
 {
     if ( TIXML_SSCANF( str, "%u", value ) == 1 ) {
+        return true;
+    }
+    return false;
+}
+
+bool XMLUtil::ToInt8( const char* str, char* value )
+{
+    short shortValue = 0;
+    if ( TIXML_SSCANF( str, "%hd", &shortValue ) == 1 ) {
+        *value = (char) shortValue;
+        return true;
+    }
+    return false;
+}
+
+bool XMLUtil::ToUnsigned8( const char* str, unsigned char* value )
+{
+    unsigned short shortValue = 0;
+    if ( TIXML_SSCANF( str, "%hu", &shortValue ) == 1 ) {
+        *value = (unsigned char) shortValue;
+        return true;
+    }
+    return false;
+}
+
+bool XMLUtil::ToInt16( const char* str, short* value )
+{
+    if ( TIXML_SSCANF( str, "%hd", value ) == 1 ) {
+        return true;
+    }
+    return false;
+}
+
+bool XMLUtil::ToUnsigned16( const char* str, unsigned short* value )
+{
+    if ( TIXML_SSCANF( str, "%hu", value ) == 1 ) {
+        return true;
+    }
+    return false;
+}
+
+bool XMLUtil::ToInt64( const char* str, long long* value )
+{
+    if ( TIXML_SSCANF( str, "%lld", value ) == 1 ) {
+        return true;
+    }
+    return false;
+}
+
+bool XMLUtil::ToUnsigned64( const char* str, unsigned long long* value )
+{
+    if ( TIXML_SSCANF( str, "%llu", value ) == 1 ) {
         return true;
     }
     return false;
@@ -1305,6 +1357,60 @@ XMLError XMLAttribute::QueryIntValue( int* value ) const
 XMLError XMLAttribute::QueryUnsignedValue( unsigned int* value ) const
 {
     if ( XMLUtil::ToUnsigned( Value(), value )) {
+        return XML_NO_ERROR;
+    }
+    return XML_WRONG_ATTRIBUTE_TYPE;
+}
+
+
+XMLError XMLAttribute::QueryInt8Value( char* value ) const
+{
+    if ( XMLUtil::ToInt8( Value(), value )) {
+        return XML_NO_ERROR;
+    }
+    return XML_WRONG_ATTRIBUTE_TYPE;
+}
+
+
+XMLError XMLAttribute::QueryUnsigned8Value( unsigned char* value ) const
+{
+    if ( XMLUtil::ToUnsigned8( Value(), value )) {
+        return XML_NO_ERROR;
+    }
+    return XML_WRONG_ATTRIBUTE_TYPE;
+}
+
+
+XMLError XMLAttribute::QueryInt16Value( short* value ) const
+{
+    if ( XMLUtil::ToInt16( Value(), value )) {
+        return XML_NO_ERROR;
+    }
+    return XML_WRONG_ATTRIBUTE_TYPE;
+}
+
+
+XMLError XMLAttribute::QueryUnsigned16Value( unsigned short* value ) const
+{
+    if ( XMLUtil::ToUnsigned16( Value(), value )) {
+        return XML_NO_ERROR;
+    }
+    return XML_WRONG_ATTRIBUTE_TYPE;
+}
+
+
+XMLError XMLAttribute::QueryInt64Value( long long* value ) const
+{
+    if ( XMLUtil::ToInt64( Value(), value )) {
+        return XML_NO_ERROR;
+    }
+    return XML_WRONG_ATTRIBUTE_TYPE;
+}
+
+
+XMLError XMLAttribute::QueryUnsigned64Value( unsigned long long* value ) const
+{
+    if ( XMLUtil::ToUnsigned64( Value(), value )) {
         return XML_NO_ERROR;
     }
     return XML_WRONG_ATTRIBUTE_TYPE;
